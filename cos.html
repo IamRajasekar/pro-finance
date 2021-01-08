@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+body {
+  background-image:url("bg.png");
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.footer {
+     left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color:rgb(65,105,225) ;
+   color: white;
+   text-align: center;
+   position:fixed;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:rgb(65,105,225);
+}
+
+li {
+  float: center;
+ 
+}
+
+li a {
+  display: block;
+  color: white;
+  font-size: 20;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+ button{
+                border-radius: 25px;
+                border: none;
+                padding: 10px 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                color: black;
+                cursor: pointer;
+             }
+			 .a{
+                background-color:rgb(65,105,225);
+                color:whitesmoke;
+                box-shadow:20px 20px 10px rgb(87, 84, 84);
+				width: 350px;
+				border: 5px solid rgb(65,105,225);
+				padding: 0px;
+                margin: 20px;
+                border-radius: 25px;
+				position: relative;
+                text-align: center;
+	            margin-top:%;
+	            margin-left:36%;
+				height: 130px;
+				box-sizing: border-box;
+
+            }
+            label {
+                 display: inline-block;
+                 width: 150px;
+                 text-align: left;
+             }
+
+       
+			table {
+			        padding:10px;
+			        border-collapse: collapse;
+					width: 350px;
+					margin-left:38.5%;
+					margin-top:-2%;
+					height: 220px;
+					display:block;
+      				}
+			
+				
+th, td {
+  text-align: center;
+  padding: 6px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: rgb(65,105,225);
+  color: white;
+  
+}
+h1{
+ text-align: center;
+ margin-top: 3.5%;
+}
+
+thead {
+					display: inline-block;
+					width: 100%;
+					height: 20px;
+					margin-top:10%;
+				}
+			tbody {
+					height: 200px;
+					display: inline-block;
+					width: 120%;
+					overflow-y: auto;
+									}
+
+</style>
+
+<body>
+
+<ul>
+   <li><a class="active" style="font-size:30px">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  LG Auto Finance  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  <button onclick="document.location='a1.html'">logout</button> </a> </li>
+
+</ul>
+<div class="topnav">
+  <a  href="#home" onclick="document.location='register.html'">Registration</a>
+  <a class="active" href="#news" >Customer Detaials</a>
+ </div>
+
+ <div class="a">
+ <form name="form" method="GET"  action="new2.html"> 
+  <h1 style="font-size:15px">Customer Detaials</h1>
+  <label>customer ID:</label>
+  <input type="number" id="id" name="id"><br><br>
+  <button>Submit</button>
+</form>
+</div>
+<h1>Our Customer</h1>
+ <table style="width:20.5%">
+ <tr>
+    <th class="row1" style="width:10%">ID</th>
+    <th class="row2">Name</th><br>
+	<th>phoneNumber</th>
+  </tr>
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="html";
+
+$conn= new mysqli($servername,$username,$password,$dbname);
+if($conn->connect_error)
+{
+	die("connection failed".$conn->connect_error);
+	}
+
+$sql = "SELECT id, cn, pn  FROM register";
+$result=$conn->query($sql);
+
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+	$i=($row['id']);
+	$n=($row['cn']);
+	$p=($row['pn']);
+	   
+        echo "<tr><td>$i</td><td>$n</td><td>$p</td></tr>";
+	   
+    }
+	echo "</table>";
+} else {
+    echo "0 results";
+}
+
+mysqli_close($conn);
+?>
+
+
+<div class="footer">
+ <p>Address : R.S Road,Vadamadurai,Dindigul,624802.|+91-1234567890</p>
+</div>
+ </body>
+</html>

@@ -1,0 +1,225 @@
+<html>
+<body>
+<ul>
+   <li><a class="active" style="font-size:30px">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  LG Auto Finance  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  <button onclick="document.location='a1.html'">Back</button> </a> </li>
+
+</ul>
+<div class="row">
+
+ 
+  
+  <style>
+   button{
+                border-radius: 25px;
+                border: none;
+                padding: 10px 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                color: black;
+                cursor: pointer;
+             }
+  .column {
+  float: left;
+  width: 31.5%;
+  padding: 10px;
+  height: 300px;
+  
+}
+body{
+ background-image:url("bg.png");}
+  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:rgb(65,105,225);
+}
+h2
+{
+ text-align: center;
+ margin-top: 3.5%;
+}
+
+}
+
+li {
+  float: center;
+ 
+}
+
+li a {
+  display: block;
+  color: white;
+  font-size: 20;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.footer {
+     left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color:rgb(65,105,225) ;
+   color: white;
+   text-align: center;
+   position:fixed;
+}
+.box{
+  background-color: rgb(65,105,225);
+  color:white;
+  width: 310px;
+  padding: 10px;
+  margin-top:0px;
+  margin-left:10%;
+  text-align:left;
+   border-radius: 25px;
+    box-shadow:20px 20px 10px rgb(87, 84, 84);
+  
+  .ta{
+  border: 1px solid black;
+  padding: 10px;
+  margin-left:12%;
+  margin-top:50%;
+  }
+}
+
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: rgb(65,105,225);
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+ background-color: rgb(65,105,225);
+  color: white;
+}
+thead {
+    display: inline-block;
+	width: 100%;
+	height: 20px;
+	margin-top:10%;
+}
+tbody {
+	height: 250px;
+	display: inline-block;
+	width: 100%;
+	overflow-y: auto;
+}
+h3{
+  font-family:bold;
+  font-size:30px;
+}
+
+</style>
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="html";
+
+$id=$_GET["id"];
+
+$conn= new mysqli($servername,$username,$password,$dbname);
+if($conn->connect_error)
+{
+	die("connection failed".$conn->connect_error);
+	}
+	$sql = "SELECT id, inp, debt, tm, cn, date, doc FROM register where  id='".$id."';";
+$result=$conn->query($sql);
+
+
+
+if (mysqli_num_rows($result) > 0) {
+   $row = mysqli_fetch_assoc($result);
+   $n=($row['debt']*$row['inp'])/100;
+   $p=($row['cn']);
+   $d=($row['date']);
+   $i=($row['id']);
+    $x=($row['doc']);
+   $m=(($row['tm'])*$n)+$row['debt'];
+ }  
+   
+   $s = "SELECT date, amount FROM data where  id='".$id."';";
+   $r=$conn->query($s);
+   
+	if (mysqli_num_rows($r) > 0) {
+	echo"<div class='column'>";
+   echo" <div class='ta'>";
+echo"<table >";
+
+echo" <tr>";
+   echo" <th>Date</th>";
+   echo" <th>Crdit</th>";
+	echo"<th>balance</th>";
+ echo" </tr>";
+while($row = mysqli_fetch_assoc($r)) {
+   $q=($row['amount']);
+   $a=($row['date']);
+   $m=$m-$q;
+    if($m==0){
+	echo "completed";
+	}
+       echo "<tr><td>$a</td><td style='text-align:center'>$q</td><td>$m</td></tr>";
+  
+}
+    echo "</table>";
+	echo"</div>";
+	 echo "</div>";
+}else{
+       echo "No Amount paid";
+	   }
+
+$sql = "SELECT id, inp, debt, tm, cn, date, doc FROM register where  id='".$id."';";
+$result=$conn->query($sql);
+
+
+
+if (mysqli_num_rows($result) > 0) {
+   $row = mysqli_fetch_assoc($result);
+   $n=($row['debt']*$row['inp'])/100;
+   $p=($row['cn']);
+   $d=($row['date']);
+   $i=($row['id']);
+    $x=($row['doc']);
+   $m=(($row['tm'])*$n)+$row['debt'];
+   echo"<div class='column'>";
+   echo "<div class='box'>";
+        echo "<h2>customer Details</h2>";
+	
+       echo "<P>Customer id      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp: $i</P>";
+       echo "<P>Customer Name      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:$p</P>";
+	   echo "<P>Date           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:$d</P>";
+	   echo "<P>ineterest of amount&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp :$n</P>";
+       echo "<P>Total Payment      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp :$m</P>";
+	   echo "<P>Address      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp :$x</P>";
+	    
+	   echo "</div>";
+        echo "</div>"; 
+} else {
+    echo "<h3>There is no data in your given id</h3>";
+	 
+}
+
+
+
+
+
+mysqli_close($conn);
+?>
+
+  </div>
+ 
+<div class="footer">
+  <p>Address : R.S Road,Vadamadurai,Dindigul,624802.|+91-1234567890</p>
+</div>
+</body>
+</html>
